@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prashasti Jain's Portfolio & Stock Tracker</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background: linear-gradient(to right, #74ebd5, #acb6e5);
+      color: #333;
+      padding: 2rem;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    header p {
+      font-size: 1.2rem;
+      color: #555;
+    }
+    section {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    h2 {
+      margin-bottom: 1rem;
+      color: #444;
+    }
+    ul {
+      list-style-type: none;
+    }
+    li {
+      padding: 0.5rem 0;
+    }
+    .stock-form input, .stock-form button {
+      padding: 0.5rem;
+      margin-right: 0.5rem;
+      border-radius: 0.5rem;
+      border: 1px solid #ccc;
+    }
+    .stock-form button {
+      background-color: #74ebd5;
+      border: none;
+      cursor: pointer;
+    }
+    .stock-list {
+      margin-top: 1rem;
+    }
+    .stock-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #ddd;
+    }
+    .remove-btn {
+      background: #f66;
+      color: white;
+      border: none;
+      padding: 0.3rem 0.6rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Prashasti Jain</h1>
+    <p>BCA Student | Christ University Delhi NCR | Aspiring Web Developer</p>
+  </header>
+
+  <section>
+    <h2>About Me</h2>
+    <p>Hello! I'm <strong>Prashasti Jain</strong>, a Bachelor of Computer Applications (BCA) student at <strong>Christ University, Delhi NCR</strong>. I have a passion for coding, especially front-end development, and I love creating interactive and visually appealing websites. I'm enthusiastic about learning new technologies and growing as a developer. This portfolio showcases my work and my interests.</p>
+  </section>
+
+  <section>
+    <h2>Projects</h2>
+    <ul>
+      <li>💻 Personal Portfolio Website - A creative and stylish introduction to myself</li>
+      <li>📈 Stock Portfolio Tracker - Add, remove, and view simulated stock prices</li>
+      <li>📊 Mini Student Result Analyzer - Visualize student scores using charts (coming soon)</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Resume</h2>
+    <p>You can view or download my resume below to learn more about my education, skills, and goals:</p>
+    <p><a href="https://1drv.ms/b/c/817f42fc0517b2b2/EXvyOldXpYhKkN_FgN5pu1wBeVvChZ8eVgpvP6MlwsGUCQ?e=M7mOQ3" target="_blank">📄 View My Resume on OneDrive</a></p>
+  </section>
+
+  <section>
+    <h2>Stock Portfolio Tracker</h2>
+    <form class="stock-form">
+      <input type="text" id="stockSymbol" placeholder="Enter Stock Symbol (e.g., AAPL)" />
+      <button type="submit">Add Stock</button>
+    </form>
+    <div class="stock-list" id="stockList"></div>
+  </section>
+
+  <script>
+    const form = document.querySelector('.stock-form');
+    const stockList = document.getElementById('stockList');
+
+    let stocks = [];
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const symbol = document.getElementById('stockSymbol').value.toUpperCase();
+      if (symbol && !stocks.includes(symbol)) {
+        stocks.push(symbol);
+        displayStocks();
+      }
+      document.getElementById('stockSymbol').value = '';
+    });
+
+    function displayStocks() {
+      stockList.innerHTML = '';
+      stocks.forEach(symbol => {
+        const item = document.createElement('div');
+        item.className = 'stock-item';
+        item.innerHTML = `
+          <span>${symbol} - Price: $<em id="price-${symbol}">Loading...</em></span>
+          <button class="remove-btn" onclick="removeStock('${symbol}')">Remove</button>
+        `;
+        stockList.appendChild(item);
+        getPrice(symbol);
+      });
+    }
+
+    function removeStock(symbol) {
+      stocks = stocks.filter(s => s !== symbol);
+      displayStocks();
+    }
+
+    function getPrice(symbol) {
+      // Simulate API response
+      setTimeout(() => {
+        const price = (Math.random() * 100 + 100).toFixed(2);
+        document.getElementById(`price-${symbol}`).innerText = price;
+      }, 500);
+    }
+  </script>
+</body>
+</html>
