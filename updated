@@ -1,0 +1,38 @@
+from tabulate import tabulate
+
+portfolio_summary = [
+    {
+        'Symbol': 'AAPL',
+        'Quantity': 10,
+        'Purchase Price': 120.0,
+        'Current Price': 95.25,
+        'Invested Value': 1200.0,
+        'Current Value': 952.5,
+        'Profit/Loss': -247.5
+    },
+    {
+        'Symbol': 'TSLA',
+        'Quantity': 3,
+        'Purchase Price': 700.0,
+        'Current Price': 120.28,
+        'Invested Value': 2100.0,
+        'Current Value': 360.84,
+        'Profit/Loss': -1739.16
+    }
+]
+
+total_invested = 3300.00
+total_current_value = 1313.34
+
+# Print summary
+headers = [
+    "Symbol", "Quantity", "Purchase Price", "Current Price",
+    "Invested Value", "Current Value", "Profit/Loss"
+]
+
+table = [list(stock.values()) for stock in portfolio_summary]
+print(tabulate(table, headers=headers, floatfmt=".2f"))
+
+print(f"\nTotal Invested: ${total_invested:.2f}")
+print(f"Total Current Value: ${total_current_value:.2f}")
+print(f"Net Profit/Loss: ${total_current_value - total_invested:.2f}")
